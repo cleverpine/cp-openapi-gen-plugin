@@ -1,0 +1,62 @@
+import { FormControl, FormGroup, Validators, ValidatorFn } from "@angular/forms";
+ 
+export interface {{classname}}{{#allParents}}{{#-first}} extends {{/-first}}{{{.}}}{{^-last}}, {{/-last}}{{/allParents}} { {{>modelGenericAdditionalProperties}}
+{{#vars}}
+    {{#description}}
+    /**
+     * {{{.}}}
+     */
+    {{/description}}
+    {{#isReadOnly}}readonly {{/isReadOnly}}{{{name}}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{/isEnum}}{{#isNullable}} | null{{/isNullable}};
+{{/vars}}
+}{{>modelGenericEnums}}
+export type {{classname}}FormGroup = { [key in keyof {{classname}}]-? : FormControl};
+ 
+/**
+* Function to create and return a new FormGroup based on the OpenAPI specification validations
+*
+* @param data {{classname}} object used to create the FormGroup
+* @returns The typed FormGroup object
+*
+*/
+export function create{{classname}}FormGroup(data: {{classname}} | null): FormGroup<{{classname}}FormGroup> {
+      return new FormGroup<{{classname}}FormGroup>({
+        {{#vars}}
+          {{name}}: new FormControl(
+              data?.{{name}} || {{#example}}'{{example}}'{{/example}}{{^example}}''{{/example}},
+              {
+                validators: [{{#required}}
+                    Validators.required,{{/required}}{{#min}}
+                    Validators.min({{min}}),{{/min}}{{#max}}
+                    Validators.max({{max}}),{{/max}}{{#minLength}}
+                    Validators.minLength({{minLength}}),{{/minLength}}{{#maxLength}}
+                    Validators.maxLength({{maxLength}}),{{/maxLength}}{{#pattern}}
+                    Validators.pattern('{{{pattern}}}'),{{/pattern}}{{#type}}
+                    typeValidator('{{type}}'),{{/type}}{{#format}}
+                    formatValidator('{{format}}'),{{/format}}
+                ].filter(v => v !== null).map(v => v as ValidatorFn),
+                nonNullable: {{#required}}true{{/required}}{{^required}}false{{/required}}
+              }
+            ),
+        {{/vars}}
+      });
+    }
+ 
+    function typeValidator(type: string): ValidatorFn | null {
+      switch (type) {
+        case 'integer': return Validators.pattern(/^-?\d+$/);
+        case 'number': return Validators.pattern(/^-?\d+(\.\d+)?$/);
+        case 'boolean': return Validators.pattern(/^(true|false)$/);
+        default: return null;
+      }
+    }
+ 
+    function formatValidator(format: string): ValidatorFn | null {
+      switch (format) {
+        case 'uuid': return Validators.pattern(/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/);
+        case 'email': return Validators.email;
+        case 'date': return Validators.pattern(/^\d{4}-\d{2}-\d{2}$/);
+        case 'date-time': return Validators.pattern(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$/);
+        default: return null;
+      }
+    }

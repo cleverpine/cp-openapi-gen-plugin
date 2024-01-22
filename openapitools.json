@@ -1,0 +1,21 @@
+{
+  "$schema": "./node_modules/@openapitools/openapi-generator-cli/config.schema.json",
+  "spaces": 2,
+  "generator-cli": {
+    "version": "7.2.0",
+    "generators": {
+      "angular":{
+        "auth": "${AUTH_TOKEN}",
+        "generatorName": "typescript-angular",
+        "inputSpec": "${INPUT_SPEC}",
+        "output": "${OUTPUT}",
+        "templateDir": "templates",
+        "additionalProperties": {
+          "ngVersion": "16.1.5",
+          "providedInRoot=": "true",
+          "fileNameing": "kebab-case"
+        }
+      }
+    }
+  }
+}
