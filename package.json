@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-library": "ng build cp-openapi-gen-plugin"
+    "build-library": "bash -O extglob -c 'rm -rf dist && mkdir dist && cp -r !(dist|node_modules|*.log) dist'"
   },
   "author": "CleverPine",
   "contributes": {
