@@ -8,7 +8,8 @@
     "cp-openapi-gen": "./main.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-library": "ng build cp-openapi-gen-plugin"
   },
   "author": "CleverPine",
   "contributes": {
