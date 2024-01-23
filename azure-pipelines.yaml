@@ -19,4 +19,5 @@ resources:
 extends:
   template: pipeline-fe-library.yaml@templates
   parameters:
+    installCommand: 'version'
     libraryName: 'cp-openapi-gen-plugin'
