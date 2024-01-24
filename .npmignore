@@ -1,5 +1,6 @@
-# Node's package manager files
+# Node
 package-lock.json
+/node_modules
 
 # Version control
 .git
