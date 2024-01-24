@@ -15,6 +15,6 @@ resources:
       ref: refs/heads/feature/fe-purejs-library-template
 
 extends:
-  template: pipeline-fe-library.yaml@templates
+  template: pipeline-fe-nobuild-library.yaml@templates
   parameters:
     libraryName: 'cp-openapi-gen-plugin'
