@@ -1,0 +1,41 @@
+# Node's package manager files
+package-lock.json
+
+# Version control
+.git
+
+# Continuous Integration
+azure-pipelines.yaml
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Editor directories and files
+.idea
+*.sublime-project
+*.sublime-workspace
+.vscode
+
+# Log files
+*.log
+
+# Test files
+test/
+tests/
+*.test.js
+*.spec.js
+
+# Development-specific files
+TODO.md
+*.config.js
+
+# Build directories
+dist/tmp/
+dist/build/
+
+# Documentation and examples
+docs/
+example/
+examples/
+
