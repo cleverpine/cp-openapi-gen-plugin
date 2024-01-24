@@ -1,9 +1,5 @@
 trigger:
   - main
-  - develop
-  - stage
-  - release*
-  - feature*
 
 pr: none
 
@@ -12,12 +8,13 @@ pool:
 
 resources:
   repositories:
+  # From the branch called feature/fe-purejs-library-template
     - repository: templates
       type: git
       name: DevOps/azure-pipeline-templates
+      ref: refs/heads/feature/fe-purejs-library-template
 
 extends:
-  template: pipeline-fe-library.yaml@templates
+  template: pipeline-fe-nobuild-library.yaml@templates
   parameters:
-    installCommand: 'version'
     libraryName: 'cp-openapi-gen-plugin'
