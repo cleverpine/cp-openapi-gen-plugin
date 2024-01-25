@@ -1,7 +1,7 @@
 {
   "name": "cp-openapi-gen-plugin",
-  "version": "0.0.2",
-  "description": "Node.js for OpenAPI specification generation using @openapitools/openapi-generator-cli",
+  "version": "0.0.3",
+  "description": "Node.js package for OpenAPI specification generation using @openapitools/openapi-generator-cli",
   "main": "main.js",
   "type": "module",
   "bin": {
