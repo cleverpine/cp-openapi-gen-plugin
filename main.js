@@ -61,7 +61,7 @@ function configure() {
 
     // Calculate the generation target directory against project's root directory
     output = path.resolve(rootDir, output);
-
+    
      // Optional, can be undefined
     let authToken = process.env.AUTH_TOKEN;
     if(authToken !== null) {
@@ -75,13 +75,7 @@ function configure() {
     const additionalProperties = "ngVersion=16.1.5,providedInRoot=true,fileNaming=kebab-case,useSingleRequestParameter=true";
 
     // Change this to use the openapitools.json and introduce multiple generators(angular, react)
-    const command = `openapi-generator-cli generate 
-    -i ${inputSpec} 
-    -o ${output} 
-    -g ${generator} 
-    -t ${templates} 
-    --additional-properties ${additionalProperties}
-    ${authToken ? `--auth Authorization:${authToken}` : ''}`;
+    const command = `openapi-generator-cli generate -i ${inputSpec} -o ${output} -g ${generator} -t ${templates} --additional-properties=${additionalProperties} ${authToken ? `--auth Authorization:${authToken}` : ''}`;
 
     // Calculate the root directory of the plugin in order to execute the 'openapi-generato-cli' command from it,
     // as it is installed only in the plugin as a dependency

@@ -1,4 +1,4 @@
-# cp-openapi-gen-plugin v0.0.5
+# cp-openapi-gen-plugin v0.0.6
 
 `cp-openapi-gen-plugin` is a Node.js package designed for automatic generation of models and APIs from an OpenAPI specification. It leverages the `@openapitools/openapi-generator-cli` to offer a streamlined, command-line interface for generating TypeScript Angular or React code from your OpenAPI documents.
 

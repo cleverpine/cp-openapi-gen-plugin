@@ -1,6 +1,6 @@
 {
   "name": "cp-openapi-gen-plugin",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Node.js package for OpenAPI specification generation using @openapitools/openapi-generator-cli",
   "main": "main.js",
   "type": "module",
@@ -14,6 +14,10 @@
   "author": "CleverPine",
   "contributes": {
     "name": "Borislav Kibarov"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cleverpine/cp-openapi-gen-plugin"
   },
   "license": "MIT",
   "dependencies": {
