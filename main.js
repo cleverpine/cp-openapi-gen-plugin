@@ -43,37 +43,45 @@ function configure() {
 
     // Get env variables from the project
     let inputSpec;
+    let output;
     try {
         inputSpec = getRequiredVariable('INPUT_SPEC', rootDir); 
+        output = getRequiredVariable('OUTPUT', rootDir);
     } catch(error) {
         console.log(error.message);
         return;
     }
 
-    // Check if the 'INPUT_SPEC' is a URL or file path
+    // Check if 'INPUT_SPEC' is a URL or file path
     const isInputSpecUrl = isUrl(inputSpec);
     if(!isInputSpecUrl) {
         // If a file path, calculate the '.yml' file's location from project's root directory
         inputSpec = path.resolve(rootDir, inputSpec);
     }
 
+    // Calculate the generation target directory against project's root directory
+    output = path.resolve(rootDir, output);
+
      // Optional, can be undefined
     let authToken = process.env.AUTH_TOKEN;
     if(authToken !== null) {
-        // URI encode the value, if present
+        // URI encode the token, if present
         authToken = encodeURIComponent(authToken);
     }
-
-    // Calculate the generation target directory against project's root directory
-    const output = path.resolve(rootDir, 'openapi');
     
     // Hardcode additional arguments
     const generator = 'typescript-angular';
-    const templates = 'templates';
-    //const additionalProperties = "ngVersion=,providedInRoot=,fileNaming=";
+    const templates = 'templates/angular';
+    const additionalProperties = "ngVersion=16.1.5,providedInRoot=true,fileNaming=kebab-case,useSingleRequestParameter=true";
 
     // Change this to use the openapitools.json and introduce multiple generators(angular, react)
-    const command = `openapi-generator-cli generate -i ${inputSpec} -o ${output} -g ${generator} -t ${templates} ${authToken ? `--auth Authorization:${authToken}` : ''}`;
+    const command = `openapi-generator-cli generate 
+    -i ${inputSpec} 
+    -o ${output} 
+    -g ${generator} 
+    -t ${templates} 
+    --additional-properties ${additionalProperties}
+    ${authToken ? `--auth Authorization:${authToken}` : ''}`;
 
     // Calculate the root directory of the plugin in order to execute the 'openapi-generato-cli' command from it,
     // as it is installed only in the plugin as a dependency

@@ -9,11 +9,22 @@
         "generatorName": "typescript-angular",
         "inputSpec": "${INPUT_SPEC}",
         "output": "${OUTPUT}",
-        "templateDir": "templates",
+        "templateDir": "templates/angular",
         "additionalProperties": {
           "ngVersion": "16.1.5",
-          "providedInRoot=": "true",
-          "fileNameing": "kebab-case"
+          "providedInRoot": "true",
+          "fileNameing": "kebab-case",
+          "useSingleRequestParameter": "true"
+        }
+      },
+      "react": {
+        "auth": "${AUTH_TOKEN}",
+        "generatorName": "typescript-fetch",
+        "inputSpec": "${INPUT_SPEC}",
+        "output": "${OUTPUT}",
+        "templateDir": "templates",
+        "additionalProperties": {
+          "useSingleRequestParameter": "true"
         }
       }
     }
