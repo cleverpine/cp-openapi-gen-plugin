@@ -1,15 +1,18 @@
 {
   "name": "cp-openapi-gen-plugin",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Node.js package for OpenAPI specification generation using @openapitools/openapi-generator-cli",
   "main": "main.js",
   "type": "module",
   "bin": {
-    "cp-openapi-gen": "./main.js"
+    "cp-openapi-gen-angular": "./codegen_angular.js",
+    "cp-openapi-gen-react": "./codegen_react.js",
+    "cp-openapi-gen-qa": "./codegen_qa.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-library": "bash -O extglob -c 'rm -rf dist && mkdir dist && cp -r !(dist|node_modules|*.log) dist'"
+    "build-library": "bash -O extglob -c 'rm -rf dist && mkdir dist && cp -r !(dist|node_modules|*.log) dist'",
+    "openapi-generator": "openapi-generator-cli"
   },
   "author": "CleverPine",
   "contributes": {
@@ -22,6 +25,7 @@
   "license": "MIT",
   "dependencies": {
     "@openapitools/openapi-generator-cli": "^2.9.0",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "yargs": "^17.7.2"
   }
 }
