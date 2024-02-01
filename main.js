@@ -5,8 +5,6 @@ import { execSync } from 'child_process';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
-import yargs from 'yargs';
-import { hideBin } from 'yargs/helpers';
 
 
 const SUPPORTED_PROJECT_TYPES = ['angular', 'react', 'qa'];
