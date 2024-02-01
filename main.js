@@ -1,9 +1,13 @@
 #!/usr/bin/env node
+
 import 'dotenv/config';
 import { execSync } from 'child_process';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
+
+
+const SUPPORTED_PROJECT_TYPES = ['angular', 'react', 'qa'];
 
 function getRequiredVariable(name, rootDir) {
     // Try to extract a variable from environment variables
@@ -37,16 +41,35 @@ function isUrl(string) {
     }
 }
 
-function configure() {
+function getGeneratorAndTemplates(projectType) {
+    switch(projectType) {
+        case 'angular':
+            return ['typescript-angular', 'templates/angular'];
+        case 'react':
+            return ['typescript-fetch', 'templates/react'];
+        case 'qa':
+            return ['typescript-fetch', 'templates/qa'];
+        default:
+            throw new Error(`Unknown project type: ${projectType}`);
+    }
+}
+
+function configure(projectType) {
     // Get the root directory of the project
     const rootDir = process.cwd();
 
-    // Get env variables from the project
+    // Get env variables from the project and configure the generator based on the provided project type
     let inputSpec;
     let output;
+    let generator;
+    let templates;
+    let additionalProperties;
     try {
         inputSpec = getRequiredVariable('INPUT_SPEC', rootDir); 
         output = getRequiredVariable('OUTPUT', rootDir);
+        [generator, templates] = getGeneratorAndTemplates(projectType);
+        // Hardcode additional arguments
+        additionalProperties = projectType === 'angular' ? 'ngVersion=16.1.5,providedInRoot=true,fileNaming=kebab-case,useSingleRequestParameter=true' : '';
     } catch(error) {
         console.log(error.message);
         return;
@@ -64,16 +87,11 @@ function configure() {
     
      // Optional, can be undefined
     let authToken = process.env.AUTH_TOKEN;
-    if(authToken !== null) {
+    if(authToken !== null && authToken !== undefined && authToken !== '') {
         // URI encode the token, if present
         authToken = encodeURIComponent(authToken);
     }
     
-    // Hardcode additional arguments
-    const generator = 'typescript-angular';
-    const templates = 'templates/angular';
-    const additionalProperties = "ngVersion=16.1.5,providedInRoot=true,fileNaming=kebab-case,useSingleRequestParameter=true";
-
     // Change this to use the openapitools.json and introduce multiple generators(angular, react)
     const command = `openapi-generator-cli generate -i ${inputSpec} -o ${output} -g ${generator} -t ${templates} --additional-properties=${additionalProperties} ${authToken ? `--auth Authorization:${authToken}` : ''}`;
 
@@ -85,5 +103,4 @@ function configure() {
     execSync(command, { stdio: 'inherit', cwd: pluginDir });
 }
 
-// This is kind of stupid, should be a better way to do it
-configure();
+export {configure};
