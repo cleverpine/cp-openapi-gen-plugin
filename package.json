@@ -25,7 +25,6 @@
   "license": "MIT",
   "dependencies": {
     "@openapitools/openapi-generator-cli": "^2.9.0",
-    "dotenv": "^16.3.1",
-    "yargs": "^17.7.2"
+    "dotenv": "^16.3.1"
   }
 }
