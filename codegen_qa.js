@@ -2,6 +2,8 @@
 
 
 import {configure} from './main.js';
+import {loadDefaultEnv, loadMultistageDotEnv} from './utils.js';
 
 
-configure('qa');
+configure('qa', [loadDefaultEnv(), loadMultistageDotEnv()]);
+
