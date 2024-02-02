@@ -2,4 +2,4 @@
 
 import {configure} from './main.js';
 
-configure('react');
+configure('react', [loadDefaultEnv(), loadConfigJson()]);
