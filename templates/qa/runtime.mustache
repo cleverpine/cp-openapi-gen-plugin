@@ -120,7 +120,7 @@ export class BaseAPI {
         return BaseAPI.jsonRegex.test(mime);
     }
 
-protected async request(context: RequestOpts, initOverrides?: RequestInit | InitOverrideFunction): Promise<Response> {
+    protected async request(context: RequestOpts, initOverrides?: RequestInit | InitOverrideFunction): Promise<Response> {
 
         const { url, init } = await this.createFetchParams(context, initOverrides);
 
@@ -155,6 +155,19 @@ protected async request(context: RequestOpts, initOverrides?: RequestInit | Init
         } else {
             console.log("     PAYLOAD: --none--");  
         }
+    }
+
+    private logResponse(response: Response, responseBody: any): void {
+        console.log("--------------------------------------Response----------------------------------------");
+        console.log("      STATUS: " + response.status + " " + response.statusText);
+        console.log("CONTENT-TYPE: " + response.headers.get("Content-Type"));
+        if (responseBody) {
+            console.log("     PAYLOAD: ");
+            console.dir(responseBody, { depth: null, colors: true });
+        } else {
+            console.log("     PAYLOAD: --none--");
+        }
+        console.log("--------------------------------------------------------------------------------------");
     }
 
     private async createFetchParams(context: RequestOpts, initOverrides?: RequestInit | InitOverrideFunction) {

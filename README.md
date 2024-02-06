@@ -1,18 +1,24 @@
-# cp-openapi-gen-plugin v0.0.6
+# cp-openapi-gen-plugin v0.0.9
 
 `cp-openapi-gen-plugin` is a Node.js package designed for automatic generation of models and APIs from an OpenAPI specification. It leverages the `@openapitools/openapi-generator-cli` to offer a streamlined, command-line interface for generating TypeScript Angular or React code from your OpenAPI documents.
 
 ## Features
 
 - **Ease of Integration:** Seamlessly integrates with existing Node.js projects.
-- **TypeScript Angular Support:** Generates TypeScript Angular or React code from OpenAPI specifications.
+- **TypeScript Support:** Generates TypeScript code from OpenAPI specifications.
 - **Customizable Output:** Allows specifying the input directory of the OpenAPI specification.
 - **Model validations**: Generates predefined validations for all models.
+- **Multiple Generators**: Comes with different generators for Angular, React, and QA code.
 
 ## Prerequisites
 
 - **npm**
 - **Java**
+
+## Supported Generators
+- **cp-openapi-gen-angular**: Generates Angular-specific code from your OpenAPI specifications.
+- **cp-openapi-gen-react**: Generates React-specific code suitable for use in React applications.
+- **cp-openapi-gen-qa**: Generates QA-specific code for testing or other quality assurance purposes.
 
 ## Installation
 Run:
@@ -23,11 +29,11 @@ Add a new 'script' to your 'package.json' file:
 ```json
 {...
   "scripts": {
-    "my-custom-script": "cp-openapi-gen"
+    "my-custom-script": "cp-openapi-gen-<generator>"
   },
 ...}
 ```
-**N.B.** The value of the 'script' should be as shown in the above example.
+**N.B.** Replace the *'generator'* placeholder with your desired generation type. This has to be one of the values from **Supported Generators** section
 
 ## Setup
 
